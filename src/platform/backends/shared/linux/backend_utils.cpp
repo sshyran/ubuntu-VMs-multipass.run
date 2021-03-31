@@ -255,8 +255,8 @@ void mp::backend::create_bridge_with(const std::string& interface)
     if (!nm_settings->is_valid())
         throw CreateBridgeException{"Could not reach remote D-Bus object", nm_settings->last_error()};
 
-    // TODO@ricab verify if suitable bridge exists
-    // TODO@ricab derive new bridge name
+    // TODO verify if suitable bridge exists
+    // TODO derive new bridge name
 
     // Expected DBus argument type: a{sa{sv}}
     VariantMapMap arg{{"connection", {{"type", QVariant{"bridge"}}, {"id", QVariant{"qtbr0"}}}},
@@ -264,11 +264,11 @@ void mp::backend::create_bridge_with(const std::string& interface)
     QDBusReply<QDBusObjectPath> obj = nm_settings->call(QDBus::Block, "AddConnection", QVariant::fromValue(arg));
     if (!obj.isValid())
     {
-        throw std::runtime_error{fmt::format("Could not create bridge: {}", obj.error().message())}; // TODO@ricab
-        // TODO@ricab: the bridge could already be there (e.g. disconnect after creation), so revert
+        throw std::runtime_error{fmt::format("Could not create bridge: {}", obj.error().message())}; // TODO
+        // TODO: the bridge could already be there (e.g. disconnect after creation), so revert
     }
 
-    // TODO@ricab create second connection, then activate the bridge
+    // TODO create second connection, then activate the bridge
 }
 
 mp::backend::CreateBridgeException::CreateBridgeException(const std::string& detail, const QDBusError& dbus_error)
