@@ -266,6 +266,9 @@ jobs:
               _retry 5 10 _run /snap/bin/multipass start || _exit $?
               _run /snap/bin/multipass list || _exit $?
 
+    - name: Print the job definition
+      run: cat testflinger.yaml
+
     - name: Submit and poll the job
       run: |
         testflinger-cli submit --poll testflinger.yaml
