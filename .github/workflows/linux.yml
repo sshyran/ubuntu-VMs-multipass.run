@@ -40,7 +40,7 @@ jobs:
               set -xeuo pipefail
 
               function _run() {{
-                ssh \${{SSH_OPTS}} "\${{DEVICE_USER}}@\${{DEVICE_IP}}" -- "\${{@}}"
+                ssh $${{SSH_OPTS}} "$${{DEVICE_USER}}@$${{DEVICE_IP}}" -- "$${{@}}"
               }}
 
               # Retry $1 times, with $2 seconds in between tries
@@ -50,7 +50,7 @@ jobs:
                   shift 2
                   for try in $( seq $tries ); do
                       RC=0
-                      "\${{@}}" || RC=$?
+                      "$${{@}}" || RC=$?
                       [ $RC -eq 0 -o $try -eq $tries ] && return $RC
                       sleep $interval;
                   done
